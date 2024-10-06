@@ -8,10 +8,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" href="LoginForm.php">Login</a></li>
-            <li class="nav-item"><a class="nav-link" href="Singup.php">Signup</a></li>
-            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#carListing">Car Listing</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="singup.php">Signup</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="carListing.php">Car Listing</a></li>
             <li class="nav-item"><a class="nav-link" href="#booking">Booking</a></li>
             <li class="nav-item"><a class="nav-link" href="adminpage.php">Adminpage</a></li>
         </ul>

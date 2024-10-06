@@ -43,5 +43,9 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
     // If validation fails, prevent form submission
     if (!valid) {
         e.preventDefault();
+    } else {
+        // Form is valid, redirect to index.php after submission
+        // You might want to change the action of the form in the HTML if necessary
+        document.getElementById('loginForm').action = 'index.php'; // Ensure your form action points to the correct file
     }
 });

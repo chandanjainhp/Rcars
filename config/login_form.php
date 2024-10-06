@@ -1,87 +1,69 @@
+ // Ensure this points to your database connection
+
 <?php
-// Initialize sessions
-session_start();
+require_once "db_connect.php";
+// Initialize variables
+$username = $password = "";
+$username_err = $password_err = "";
 
-// Check if the user is already logged in, if yes then redirect to welcome page
-if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
-    header("location: welcome.php");
-    exit;
-}
-
-// Include config file
-require_once "db.php";
-
-// Define variables and initialize with empty values
-$username = $password = '';
-$username_err = $password_err = '';
-
-// Process submitted form data
+// Process the form when it is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Check if username is empty
+    // Validate username
     if (empty(trim($_POST['username']))) {
-        $username_err = 'Please enter username.';
+        $username_err = "Please enter your username.";
     } else {
         $username = trim($_POST['username']);
     }
 
-    // Check if password is empty
+    // Validate password
     if (empty(trim($_POST['password']))) {
-        $password_err = 'Please enter your password.';
+        $password_err = "Please enter your password.";
     } else {
         $password = trim($_POST['password']);
     }
 
-    // Validate credentials
+    // Check for errors before querying the database
     if (empty($username_err) && empty($password_err)) {
         // Prepare a select statement
-        $sql = 'SELECT id, username, password FROM users WHERE username = ?';
+        $sql = "SELECT id, password FROM users WHERE email = ?";
 
         if ($stmt = $mysql_db->prepare($sql)) {
-            // Set parameter
-            $param_username = $username;
+            // Bind parameters
+            $stmt->bind_param('s', $username);
 
-            // Bind parameter to statement
-            $stmt->bind_param('s', $param_username);
-
-            // Attempt to execute
+            // Attempt to execute the statement
             if ($stmt->execute()) {
                 // Store result
                 $stmt->store_result();
 
-                // Check if username exists. Verify user exists then verify
+                // Check if the user exists
                 if ($stmt->num_rows == 1) {
-                    // Bind result into variables
-                    $stmt->bind_result($id, $username, $hashed_password);
-
+                    // Bind the result
+                    $stmt->bind_result($id, $hashed_password);
                     if ($stmt->fetch()) {
+                        // Verify password
                         if (password_verify($password, $hashed_password)) {
                             // Start a new session
                             session_start();
-
-                            // Store data in session
-                            $_SESSION['loggedin'] = true;
-                            $_SESSION['id'] = $id;
-                            $_SESSION['username'] = $username;
-
-                            // Redirect to user to page
-                            header('location: welcome.php');
+                            $_SESSION['id'] = $id; // Store user ID in session
+                            header("location: welcome.php"); // Redirect to welcome page
+                            exit;
                         } else {
-                            // Display an error for password mismatch
-                            $password_err = 'Invalid password';
+                            $password_err = "The password you entered was not valid.";
                         }
                     }
                 } else {
-                    $username_err = "Username does not exist.";
+                    $username_err = "No account found with that username.";
                 }
             } else {
-                echo "Oops! Something went wrong. Please try again.";
+                echo "Oops! Something went wrong. Please try again later.";
             }
             // Close statement
             $stmt->close();
         }
-
-        // Close connection
-        $mysql_db->close();
     }
+
+    // Close connection
+    $mysql_db->close();
 }
 ?>

@@ -29,7 +29,7 @@
             </form>
         </section>
     </main>
-
+    <?php require_once("commons/footer.php"); ?>
     <script src="assets/js/password_reset.js"></script> <!-- Separate JavaScript file -->
 </body>
 </html>

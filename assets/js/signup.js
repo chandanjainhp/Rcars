@@ -11,7 +11,7 @@ document.getElementById('signupForm').addEventListener('submit', function (e) {
     if (password.trim() === '') {
         document.getElementById('passwordError').textContent = 'Please enter a password.';
         document.getElementById('passwordError').style.display = 'block';
-        valid = false;
+        valid = false; 
     } else if (password.length < 8) {
         document.getElementById('passwordError').textContent = 'Password must be at least 8 characters long.';
         document.getElementById('passwordError').style.display = 'block';

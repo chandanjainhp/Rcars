@@ -2,7 +2,7 @@ body {
     scroll-behavior: smooth;
 }
 .hero {
-    background: url('carwith.jpg') no-repeat center center;
+    background: url('/assets/image/hero.jpg') no-repeat center center;
     background-size: cover;
     height: 60vh;
     display: flex;
@@ -10,18 +10,14 @@ body {
     justify-content: center;
     color: white;
 }
-#terms, #privacy {
+#terms {
     padding: 40px 0;
 }
-#terms .container, #privacy .container {
+#terms .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-#terms h3, #privacy h3 {
-    margin-top: 20px;
-    margin-bottom: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
